@@ -28,13 +28,21 @@ def cityreader(cities=[]):
   # For each city record, create a new City instance and add it to the 
   # `cities` list
     
-    return cities
+  # NOTE use open and reader object 
+  with open('cities.csv', 'r') as csvCities: #r read files
+      reader = csv.reader(csvCities, delimiter = ',', 
+  quotechar = '|') # split a string with multiple delimiters (commas) acts as a field delimiter in a sequence of comma-separated values
+      for row in reader:
+        if row[0] != 'city':
+          cities.append(City(row[0], float(row[3]), 
+  float(row[4])))
+      return cities
 
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c)
+    print(c.name, c.lat, c.lon)
 
 # STRETCH GOAL!
 #
